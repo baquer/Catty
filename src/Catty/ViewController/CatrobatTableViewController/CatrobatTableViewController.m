@@ -190,14 +190,12 @@ static NSCharacterSet *blockedCharacterSet = nil;
 #pragma mark - introduction
 
 - (void)presentIntroductionIfNeeded {
-    if ([IntroductionPageViewController skipOnLaunch]) {
-        return;
+    if (!IntroductionPageViewController.hasBeenShown || IntroductionPageViewController.showOnEveryLaunch) {
+        UIViewController *viewController = [IntroductionPageViewController new];
+        viewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self.navigationController presentViewController:viewController animated:NO completion:nil];
     }
-
-    UIViewController *viewController = [IntroductionPageViewController new];
-    viewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [self.navigationController presentViewController:viewController animated:NO completion:nil];
 }
 
 #pragma mark - actions

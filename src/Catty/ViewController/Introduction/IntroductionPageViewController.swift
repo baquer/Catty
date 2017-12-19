@@ -143,19 +143,29 @@ extension IntroductionPageViewController: UIPageViewControllerDelegate {
             let index = self.pages.index(of: previousViewController),
             self.dismissAfterAnimation && index == self.content.count - 1 && completed {
             self.presentingViewController?.dismiss(animated: true, completion: nil)
-            IntroductionPageViewController.skipOnLaunch = true
+            IntroductionPageViewController.hasBeenShown = true
         }
     }
 }
 
 extension IntroductionPageViewController {
     @objc
-    static var skipOnLaunch: Bool {
+    static var hasBeenShown: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: kUserSkipIntroductionOnLaunch)
+            return UserDefaults.standard.bool(forKey: kUserIntroductionHasBeenShown)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: kUserSkipIntroductionOnLaunch)
+            UserDefaults.standard.set(newValue, forKey: kUserIntroductionHasBeenShown)
+        }
+    }
+
+    @objc
+    static var showOnEveryLaunch: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: kUserShowIntroductionOnEveryLaunch)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: kUserShowIntroductionOnEveryLaunch)
         }
     }
 }

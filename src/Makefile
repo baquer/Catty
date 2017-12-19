@@ -2,4 +2,4 @@ help:
 	@echo usage: make init
 
 init:
-	carthage bootstrap --platform iOS
+	carthage bootstrap --platform iOS --cache-builds
